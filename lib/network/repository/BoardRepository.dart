@@ -1,4 +1,3 @@
-import 'package:ntcbrew/network/ApiResponse.dart';
 import 'package:ntcbrew/network/model/Board.dart';
 import 'package:ntcbrew/network/model/BoardAdd.dart';
 import 'package:ntcbrew/network/model/BoardDelete.dart';

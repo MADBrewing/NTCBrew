@@ -1,4 +1,3 @@
-import 'package:ntcbrew/network/ApiResponse.dart';
 import 'package:ntcbrew/network/model/Module.dart';
 import 'package:ntcbrew/network/model/Profile.dart';
 import 'package:ntcbrew/network/model/Sensor.dart';
