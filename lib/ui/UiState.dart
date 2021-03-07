@@ -12,6 +12,6 @@ class UiState<T> {
 enum UiStatus { SUCCESS, ERROR, LOADING }
 
 class ErrorState {
-  Exception? exception;
-  ErrorState();
+  String? message;
+  ErrorState(this.message);
 }
