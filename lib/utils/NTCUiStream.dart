@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:ntcbrew/ui/UiState.dart';
 
 class NTCUiStream<T> {
-
   late StreamController<UiState<T>> _controller;
+
   StreamSink<UiState<T>> get sink => _controller.sink;
+
   Stream<UiState<T>> get stream => _controller.stream;
 
   NTCUiStream() {
@@ -15,7 +16,8 @@ class NTCUiStream<T> {
   getData(Future<T> Function() data) async {
     loading();
     try {
-      success(await data());
+      var completed = await data();
+      success(completed);
     } catch (e) {
       print(e.toString());
       error(e);

@@ -6,7 +6,7 @@ class ProgramNetworkService implements ProgramService {
   @override
   Future<List<Program>> getPrograms() async {
     var response = await get("program/all");
-    List<Program> data = response.map((e) => Program.fromJson(e)).toList();
+    List<Program> data = response.map<Program>((e) => Program.fromJson(e)).toList();
     return data;
   }
 

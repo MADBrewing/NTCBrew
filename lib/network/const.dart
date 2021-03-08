@@ -1,8 +1,8 @@
 class Constants {
   static String protocol = "http://";
-  static String host = "127.0.0.1";
-  static String port = "8000";
+  static String host = "10.0.0.17";
+  static String port = "80";
   static String api = "api";
-  static String version = "version";
-  static String url = "http://$host:$port/$api/$version/";
+  static String version = "v1";
+  static String url = "$protocol$host:$port/$api/$version/";
 }

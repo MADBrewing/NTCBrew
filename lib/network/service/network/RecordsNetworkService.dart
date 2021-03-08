@@ -6,7 +6,7 @@ class RecordsNetworkService implements RecordsService {
   @override
   Future<List<Records>> getRecords() async {
     var response = await get("records/all");
-    List<Records> data = response.map((e) => Records.fromJson(e)).toList();
+    List<Records> data = response.map<Records>((e) => Records.fromJson(e)).toList();
     return data;
   }
 

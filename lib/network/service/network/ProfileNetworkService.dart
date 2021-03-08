@@ -8,7 +8,7 @@ class ProfileNetworkService implements ProfileService {
   @override
   Future<List<Profile>> getProfiles() async {
     var response = await get("profile/all");
-    List<Profile> data = response.map((e) => Profile.fromJson(e)).toList();
+    List<Profile> data = response.map<Profile>((e) => Profile.fromJson(e)).toList();
     return data;
   }
 
@@ -37,7 +37,7 @@ class ProfileNetworkService implements ProfileService {
   @override
   Future<List<Module>> getModules() async {
     var response = await get("profile/module/all");
-    List<Module> data = response.map((e) => Module.fromJson(e)).toList();
+    List<Module> data = response.map<Module>((e) => Module.fromJson(e)).toList();
     return data;
   }
 
@@ -66,7 +66,7 @@ class ProfileNetworkService implements ProfileService {
   @override
   Future<List<Sensor>> getSensors() async {
     var response = await get("profile/sensor/all");
-    List<Sensor> data = response.map((e) => Sensor.fromJson(e)).toList();
+    List<Sensor> data = response.map<Sensor>((e) => Sensor.fromJson(e)).toList();
     return data;
   }
 

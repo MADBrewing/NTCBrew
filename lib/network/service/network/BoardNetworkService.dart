@@ -8,14 +8,14 @@ import 'package:ntcbrew/utils/HttpUtil.dart';
 class BoardNetworkService implements BoardService {
   @override
   Future<List<Board>> getBoards() async {
-      var response = await get("boards/all");
-      List<Board> data = response.map((e) => Board.fromJson(e)).toList();
+      var response = await get("board/all");
+      List<Board> data = response.map<Board>((e) => Board.fromJson(e)).toList();
       return data;
   }
 
   @override
   Future<Board> getBoardById(String id) async {
-    var response = await get("boards/getById/$id");
+    var response = await get("board/getById/$id");
     var data = Board.fromJson(response);
     return data;
   }
@@ -23,7 +23,7 @@ class BoardNetworkService implements BoardService {
   @override
   Future<Board> addBoard(BoardAdd request) async {
     var jsonRequest = request.toJson();
-    var response = await post("boards/add", body: jsonRequest);
+    var response = await post("board/add", body: jsonRequest);
     var data = Board.fromJson(response);
     return data;
   }
@@ -31,7 +31,7 @@ class BoardNetworkService implements BoardService {
   @override
   Future<Board> deleteBoard(BoardDelete request) async {
     var jsonRequest = request.toJson();
-    var response = await delete("boards/delete", body: jsonRequest);
+    var response = await delete("board/delete", body: jsonRequest);
     var data = Board.fromJson(response);
     return data;
   }
@@ -39,7 +39,7 @@ class BoardNetworkService implements BoardService {
   @override
   Future<List<RaspberryPi4>> getRaspberryPi4s() async {
     var response = await get("raspberryPi4/all");
-    List<RaspberryPi4> data = response.map((e) => RaspberryPi4.fromJson(e)).toList();
+    List<RaspberryPi4> data = response.map<RaspberryPi4>((e) => RaspberryPi4.fromJson(e)).toList();
     return data;
   }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ntcbrew/network/model/Board.dart';
 import 'package:ntcbrew/network/repository/BoardRepository.dart';
+import 'package:ntcbrew/ui/UiState.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,42 +30,85 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   BoardRepository boardRepository = BoardRepository();
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Brewing',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Formulas',
+      style: optionStyle,
+    ),
+  ];
 
-  void _incrementCounter() {
-    boardRepository.getBoards();
+  void _onItemTapped(int index) {
     setState(() {
-      _counter++;
+      _selectedIndex = index;
+      boardRepository.getBoards();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title!),
       ),
-      body: Center(
+      body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+          children: [
+            StreamBuilder<UiState<List<Board>>>(
+                stream: boardRepository.getBoardsController.stream,
+                builder: (BuildContext context, AsyncSnapshot<UiState<List<Board>>> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Text("Loading");
+                  }
+                  switch (snapshot.data!.status) {
+                    case UiStatus.SUCCESS:
+                      return Expanded(
+                          child: ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              itemCount: snapshot.data!.data!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Card(
+                                    child: ListTile(
+                                  title: Text(snapshot.data!.data![0].name),
+                                  subtitle: Text(snapshot.data!.data![0].model),
+                                ));
+                              }));
+                    case UiStatus.ERROR:
+                      return Text("Error");
+                    case UiStatus.LOADING:
+                      return Text("Loading");
+                  }
+                }),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Brewing',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Formulas',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    boardRepository.disposeAll();
   }
 }

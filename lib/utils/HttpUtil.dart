@@ -8,17 +8,16 @@ import 'package:ntcbrew/network/exceptions/NetworkException.dart';
 
 Future<dynamic> get(String url, {Map<String, String>? headers}) async {
   try {
-    final response = await http.get(Uri.parse("${Constants.url}/$url"), headers: headers);
+    final response = await http.get(Uri.parse("${Constants.url}$url"), headers: headers);
     return decodeResponse(response);
-  } catch(e) {
-    print(e);
-    throw e;
+  } on SocketException {
+    throw FetchDataException('No Internet connection');
   }
 }
 
 Future<dynamic> post(String url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
   try {
-    final response = await http.post(Uri.parse("${Constants.url}/$url"), headers: headers, body: body, encoding: encoding);
+    final response = await http.post(Uri.parse("${Constants.url}$url"), headers: headers, body: body, encoding: encoding);
     return decodeResponse(response);
   } on SocketException {
     throw FetchDataException('No Internet connection');
@@ -27,7 +26,7 @@ Future<dynamic> post(String url, {Map<String, String>? headers, Object? body, En
 
 Future<dynamic> delete(String url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
   try {
-    final response = await http.delete(Uri.parse("${Constants.url}/$url"), headers: headers, body: body, encoding: encoding);
+    final response = await http.delete(Uri.parse("${Constants.url}$url"), headers: headers, body: body, encoding: encoding);
     return decodeResponse(response);
   } on SocketException {
     throw FetchDataException('No Internet connection');
@@ -48,6 +47,6 @@ dynamic decodeResponse(http.Response response) {
     case 500:
     default:
       throw FetchDataException(
-          'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+          '${response.request?.url ?? "---"} -> Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
   }
 }
