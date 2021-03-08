@@ -2,57 +2,88 @@ import 'package:ntcbrew/network/model/Module.dart';
 import 'package:ntcbrew/network/model/Profile.dart';
 import 'package:ntcbrew/network/model/Sensor.dart';
 import 'package:ntcbrew/network/service/ProfileService.dart';
+import 'package:ntcbrew/utils/NTCUiStream.dart';
 
 class ProfileRepository {
-  final ProfileService service;
+  final ProfileService _service;
 
-  ProfileRepository(this.service);
+  NTCUiStream<List<Profile>> getProfilesController = NTCUiStream();
+  NTCUiStream<Profile> getProfileByIdController = NTCUiStream();
+  NTCUiStream<Profile> addProfileController = NTCUiStream();
+  NTCUiStream<Profile> deleteProfileController = NTCUiStream();
 
-  Future<Module> addModule(Module request) async {
-    return await service.addModule(request);
+  NTCUiStream<List<Module>> getModulesController = NTCUiStream();
+  NTCUiStream<Module> getModuleByIdController = NTCUiStream();
+  NTCUiStream<Module> addModuleController = NTCUiStream();
+  NTCUiStream<Module> deleteModuleController = NTCUiStream();
+
+  NTCUiStream<List<Sensor>> getSensorsController = NTCUiStream();
+  NTCUiStream<Sensor> getSensorByIdController = NTCUiStream();
+  NTCUiStream<Sensor> addSensorController = NTCUiStream();
+  NTCUiStream<Sensor> deleteSensorController = NTCUiStream();
+
+  ProfileRepository(this._service);
+
+  getProfiles() async {
+    getProfilesController.getData(await _service.getProfiles());
   }
 
-  Future<Profile> addProfile(Profile request) async {
-    return await service.addProfile(request);
+  getProfileById(String id) async {
+    getProfileByIdController.getData(await _service.getProfileById(id));
   }
 
-  Future<Sensor> addSensor(Sensor request) async {
-    return await service.addSensor(request);
+  addProfile(Profile request) async {
+    addProfileController.getData(await _service.addProfile(request));
   }
 
-  Future<Module> deleteModule(String id) async {
-    return await service.deleteModule(id);
+  deleteProfile(String id) async {
+    deleteProfileController.getData(await _service.deleteProfile(id));
   }
 
-  Future<Profile> deleteProfile(String id) async {
-    return await service.deleteProfile(id);
+  getModules() async {
+    getModulesController.getData(await _service.getModules());
   }
 
-  Future<Sensor> deleteSensor(String id) async {
-    return await service.deleteSensor(id);
+  getModuleById(String id) async {
+    getModuleByIdController.getData(await _service.getModuleById(id));
   }
 
-  Future<Module> getModuleById(String id) async {
-    return await service.getModuleById(id);
+  addModule(Module request) async {
+    addModuleController.getData(await _service.addModule(request));
   }
 
-  Future<List<Module>> getModules() async {
-    return await service.getModules();
+  deleteModule(String id) async {
+    deleteModuleController.getData(await _service.deleteModule(id));
   }
 
-  Future<Profile> getProfileById(String id) async {
-    return await service.getProfileById(id);
+  getSensors() async {
+    getSensorsController.getData(await _service.getSensors());
   }
 
-  Future<List<Profile>> getProfiles() async {
-    return await service.getProfiles();
+  getSensorById(String id) async {
+    getSensorByIdController.getData(await _service.getSensorById(id));
   }
 
-  Future<Sensor> getSensorById(String id) async {
-    return await service.getSensorById(id);
+  addSensor(Sensor request) async {
+    addSensorController.getData(await _service.addSensor(request));
   }
 
-  Future<List<Sensor>> getSensors() async {
-    return await service.getSensors();
+  deleteSensor(String id) async {
+    deleteSensorController.getData(await _service.deleteSensor(id));
+  }
+
+  disposeAll() {
+    getProfilesController.dispose();
+    getProfileByIdController.dispose();
+    addProfileController.dispose();
+    deleteProfileController.dispose();
+    getModulesController.dispose();
+    getModuleByIdController.dispose();
+    addModuleController.dispose();
+    deleteModuleController.dispose();
+    getSensorsController.dispose();
+    getSensorByIdController.dispose();
+    addSensorController.dispose();
+    deleteSensorController.dispose();
   }
 }
