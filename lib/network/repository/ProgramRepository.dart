@@ -12,15 +12,15 @@ class ProgramRepository {
   ProgramRepository(this._service);
 
   addProgram(Program request) async {
-    addProgramController.getData(await _service.addProgram(request));
+    addProgramController.getData(() => _service.addProgram(request));
   }
 
   getProgramById(String id) async {
-    getProgramByIdController.getData(await _service.getProgramById(id));
+    getProgramByIdController.getData(() => _service.getProgramById(id));
   }
 
   getPrograms() async {
-    getProgramsController.getData(await _service.getPrograms());
+    getProgramsController.getData(() => _service.getPrograms());
   }
 
   disposeAll() {

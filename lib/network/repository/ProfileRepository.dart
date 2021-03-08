@@ -25,51 +25,51 @@ class ProfileRepository {
   ProfileRepository(this._service);
 
   getProfiles() async {
-    getProfilesController.getData(await _service.getProfiles());
+    getProfilesController.getData(() => _service.getProfiles());
   }
 
   getProfileById(String id) async {
-    getProfileByIdController.getData(await _service.getProfileById(id));
+    getProfileByIdController.getData(() => _service.getProfileById(id));
   }
 
   addProfile(Profile request) async {
-    addProfileController.getData(await _service.addProfile(request));
+    addProfileController.getData(() => _service.addProfile(request));
   }
 
   deleteProfile(String id) async {
-    deleteProfileController.getData(await _service.deleteProfile(id));
+    deleteProfileController.getData(() => _service.deleteProfile(id));
   }
 
   getModules() async {
-    getModulesController.getData(await _service.getModules());
+    getModulesController.getData(() => _service.getModules());
   }
 
   getModuleById(String id) async {
-    getModuleByIdController.getData(await _service.getModuleById(id));
+    getModuleByIdController.getData(() => _service.getModuleById(id));
   }
 
   addModule(Module request) async {
-    addModuleController.getData(await _service.addModule(request));
+    addModuleController.getData(() => _service.addModule(request));
   }
 
   deleteModule(String id) async {
-    deleteModuleController.getData(await _service.deleteModule(id));
+    deleteModuleController.getData(() => _service.deleteModule(id));
   }
 
   getSensors() async {
-    getSensorsController.getData(await _service.getSensors());
+    getSensorsController.getData(() => _service.getSensors());
   }
 
   getSensorById(String id) async {
-    getSensorByIdController.getData(await _service.getSensorById(id));
+    getSensorByIdController.getData(() => _service.getSensorById(id));
   }
 
   addSensor(Sensor request) async {
-    addSensorController.getData(await _service.addSensor(request));
+    addSensorController.getData(() => _service.addSensor(request));
   }
 
   deleteSensor(String id) async {
-    deleteSensorController.getData(await _service.deleteSensor(id));
+    deleteSensorController.getData(() => _service.deleteSensor(id));
   }
 
   disposeAll() {

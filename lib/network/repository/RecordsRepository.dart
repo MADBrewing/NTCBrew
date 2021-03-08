@@ -10,12 +10,12 @@ class RecordsRepository {
 
   RecordsRepository(this.service);
 
-  getProgramById(String id) async {
-    getProgramByIdController.getData(await service.getProgramById(id));
+  getProgramById(String id) {
+    getProgramByIdController.getData(() => service.getProgramById(id));
   }
 
   getRecords() async {
-    getRecordsController.getData(await service.getRecords());
+    getRecordsController.getData(() => service.getRecords());
   }
 
   disposeAll() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ntcbrew/network/repository/BoardRepository.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,8 +29,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  BoardRepository boardRepository = BoardRepository();
 
   void _incrementCounter() {
+    boardRepository.getBoards();
     setState(() {
       _counter++;
     });

@@ -10,8 +10,9 @@ Future<dynamic> get(String url, {Map<String, String>? headers}) async {
   try {
     final response = await http.get(Uri.parse("${Constants.url}/$url"), headers: headers);
     return decodeResponse(response);
-  } on SocketException {
-    throw FetchDataException('No Internet connection');
+  } catch(e) {
+    print(e);
+    throw e;
   }
 }
 

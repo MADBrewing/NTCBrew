@@ -12,13 +12,26 @@ class NTCUiStream<T> {
     _controller = StreamController();
   }
 
-  getData(T fetchData) async {
-    sink.add(UiState.loading());
+  getData(Future<T> Function() data) async {
+    loading();
     try {
-      sink.add(UiState.complete(fetchData));
+      success(await data());
     } catch (e) {
-      sink.add(UiState.error(ErrorState(e.toString())));
+      print(e.toString());
+      error(e);
     }
+  }
+
+  loading() {
+    sink.add(UiState.loading());
+  }
+
+  success(T data) {
+    sink.add(UiState.complete(data));
+  }
+
+  error(Object e) {
+    sink.add(UiState.error(ErrorState(e.toString())));
   }
 
   dispose() {

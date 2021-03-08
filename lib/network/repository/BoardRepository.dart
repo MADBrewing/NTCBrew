@@ -3,10 +3,11 @@ import 'package:ntcbrew/network/model/BoardAdd.dart';
 import 'package:ntcbrew/network/model/BoardDelete.dart';
 import 'package:ntcbrew/network/model/RaspberryPi4.dart';
 import 'package:ntcbrew/network/service/BoardService.dart';
+import 'package:ntcbrew/network/service/network/BoardNetworkService.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
 
 class BoardRepository {
-  final BoardService _service;
+  final BoardService _service = BoardNetworkService();
 
   NTCUiStream<Board> addBoardController = NTCUiStream();
   NTCUiStream<Board> deleteBoardController = NTCUiStream();
@@ -16,34 +17,34 @@ class BoardRepository {
   NTCUiStream<List<RaspberryPi4>> getRaspberryPi4sController = NTCUiStream();
   NTCUiStream<RaspberryPi4> getRaspberryPiByIdController = NTCUiStream();
 
-  BoardRepository(this._service);
+  BoardRepository();
 
   addBoard(BoardAdd request) async {
-    addBoardController.getData(await _service.addBoard(request));
+    addBoardController.getData(() => _service.addBoard(request));
   }
 
   deleteBoard(BoardDelete request) async {
-    deleteBoardController.getData(await _service.deleteBoard(request));
+    deleteBoardController.getData(() => _service.deleteBoard(request));
   }
 
   getBoardById(String id) async {
-    getBoardByIdController.getData(await _service.getBoardById(id));
+    getBoardByIdController.getData(() => _service.getBoardById(id));
   }
 
   getBoards() async {
-    getBoardsController.getData(await _service.getBoards());
+    getBoardsController.getData(() => _service.getBoards());
   }
 
   addRaspberryPi4(RaspberryPi4 request) async {
-    addRaspberryController.getData(await _service.addRaspberryPi4(request));
+    addRaspberryController.getData(() => _service.addRaspberryPi4(request));
   }
 
   getRaspberryPi4s() async {
-    getRaspberryPi4sController.getData(await _service.getRaspberryPi4s());
+    getRaspberryPi4sController.getData(() => _service.getRaspberryPi4s());
   }
 
   getRaspberryPiById(String id) async {
-    getRaspberryPiByIdController.getData(await _service.getRaspberryPiById(id));
+    getRaspberryPiByIdController.getData(() => _service.getRaspberryPiById(id));
   }
 
   disposeAll() {
