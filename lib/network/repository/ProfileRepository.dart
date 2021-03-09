@@ -2,88 +2,33 @@ import 'package:ntcbrew/network/model/Module.dart';
 import 'package:ntcbrew/network/model/Profile.dart';
 import 'package:ntcbrew/network/model/Sensor.dart';
 import 'package:ntcbrew/network/service/ProfileService.dart';
+import 'package:ntcbrew/network/service/network/ProfileNetworkService.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
 
 class ProfileRepository {
-  final ProfileService _service;
+  final ProfileService _service = ProfileNetworkService();
 
-  NTCUiStream<List<Profile>> getProfilesController = NTCUiStream();
-  NTCUiStream<Profile> getProfileByIdController = NTCUiStream();
-  NTCUiStream<Profile> addProfileController = NTCUiStream();
-  NTCUiStream<Profile> deleteProfileController = NTCUiStream();
+  NTCUiStream<List<Profile>> getProfiles() => NTCUiStream.create<List<Profile>>(() => _service.getProfiles());
 
-  NTCUiStream<List<Module>> getModulesController = NTCUiStream();
-  NTCUiStream<Module> getModuleByIdController = NTCUiStream();
-  NTCUiStream<Module> addModuleController = NTCUiStream();
-  NTCUiStream<Module> deleteModuleController = NTCUiStream();
+  NTCUiStream<Profile> getProfileById(String id) => NTCUiStream.create<Profile>(() => _service.getProfileById(id));
 
-  NTCUiStream<List<Sensor>> getSensorsController = NTCUiStream();
-  NTCUiStream<Sensor> getSensorByIdController = NTCUiStream();
-  NTCUiStream<Sensor> addSensorController = NTCUiStream();
-  NTCUiStream<Sensor> deleteSensorController = NTCUiStream();
+  NTCUiStream<Profile> addProfile(Profile request) => NTCUiStream.create<Profile>(() => _service.addProfile(request));
 
-  ProfileRepository(this._service);
+  NTCUiStream<Profile> deleteProfile(String id) => NTCUiStream.create<Profile>(() => _service.deleteProfile(id));
 
-  getProfiles() async {
-    getProfilesController.getData(() => _service.getProfiles());
-  }
+  NTCUiStream<List<Module>> getModules() => NTCUiStream.create<List<Module>>(() => _service.getModules());
 
-  getProfileById(String id) async {
-    getProfileByIdController.getData(() => _service.getProfileById(id));
-  }
+  NTCUiStream<Module> getModuleById(String id) => NTCUiStream.create<Module>(() => _service.getModuleById(id));
 
-  addProfile(Profile request) async {
-    addProfileController.getData(() => _service.addProfile(request));
-  }
+  NTCUiStream<Module> addModule(Module request) => NTCUiStream.create<Module>(() => _service.addModule(request));
 
-  deleteProfile(String id) async {
-    deleteProfileController.getData(() => _service.deleteProfile(id));
-  }
+  NTCUiStream<Module> deleteModule(String id) => NTCUiStream.create<Module>(() => _service.deleteModule(id));
 
-  getModules() async {
-    getModulesController.getData(() => _service.getModules());
-  }
+  NTCUiStream<List<Sensor>> getSensors() => NTCUiStream.create<List<Sensor>>(() => _service.getSensors());
 
-  getModuleById(String id) async {
-    getModuleByIdController.getData(() => _service.getModuleById(id));
-  }
+  NTCUiStream<Sensor> getSensorById(String id) => NTCUiStream.create<Sensor>(() => _service.getSensorById(id));
 
-  addModule(Module request) async {
-    addModuleController.getData(() => _service.addModule(request));
-  }
+  NTCUiStream<Sensor> addSensor(Sensor request) => NTCUiStream.create<Sensor>(() => _service.addSensor(request));
 
-  deleteModule(String id) async {
-    deleteModuleController.getData(() => _service.deleteModule(id));
-  }
-
-  getSensors() async {
-    getSensorsController.getData(() => _service.getSensors());
-  }
-
-  getSensorById(String id) async {
-    getSensorByIdController.getData(() => _service.getSensorById(id));
-  }
-
-  addSensor(Sensor request) async {
-    addSensorController.getData(() => _service.addSensor(request));
-  }
-
-  deleteSensor(String id) async {
-    deleteSensorController.getData(() => _service.deleteSensor(id));
-  }
-
-  disposeAll() {
-    getProfilesController.dispose();
-    getProfileByIdController.dispose();
-    addProfileController.dispose();
-    deleteProfileController.dispose();
-    getModulesController.dispose();
-    getModuleByIdController.dispose();
-    addModuleController.dispose();
-    deleteModuleController.dispose();
-    getSensorsController.dispose();
-    getSensorByIdController.dispose();
-    addSensorController.dispose();
-    deleteSensorController.dispose();
-  }
+  NTCUiStream<Sensor> deleteSensor(String id) => NTCUiStream.create<Sensor>(() => _service.deleteSensor(id));
 }

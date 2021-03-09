@@ -11,7 +11,7 @@ class RecordsNetworkService implements RecordsService {
   }
 
   @override
-  Future<Records> getProgramById(String id) async {
+  Future<Records> getRecordsById(String id) async {
     var response = await get("records/getById/$id");
     var data = Records.fromJson(response);
     return data;

@@ -9,51 +9,20 @@ import 'package:ntcbrew/utils/NTCUiStream.dart';
 class BoardRepository {
   final BoardService _service = BoardNetworkService();
 
-  NTCUiStream<Board> addBoardController = NTCUiStream();
-  NTCUiStream<Board> deleteBoardController = NTCUiStream();
-  NTCUiStream<Board> getBoardByIdController = NTCUiStream();
-  NTCUiStream<List<Board>> getBoardsController = NTCUiStream();
-  NTCUiStream<RaspberryPi4> addRaspberryController = NTCUiStream();
-  NTCUiStream<List<RaspberryPi4>> getRaspberryPi4sController = NTCUiStream();
-  NTCUiStream<RaspberryPi4> getRaspberryPiByIdController = NTCUiStream();
-
   BoardRepository();
 
-  addBoard(BoardAdd request) async {
-    addBoardController.getData(() => _service.addBoard(request));
-  }
+  NTCUiStream<Board> addBoard(BoardAdd request) => NTCUiStream.create<Board>(() => _service.addBoard(request));
 
-  deleteBoard(BoardDelete request) async {
-    deleteBoardController.getData(() => _service.deleteBoard(request));
-  }
+  NTCUiStream<Board> deleteBoard(BoardDelete request) => NTCUiStream.create<Board>(() => _service.deleteBoard(request));
 
-  getBoardById(String id) async {
-    getBoardByIdController.getData(() => _service.getBoardById(id));
-  }
+  NTCUiStream<Board> getBoardById(String id) => NTCUiStream.create<Board>(() => _service.getBoardById(id));
 
-  getBoards() async {
-    getBoardsController.getData(() => _service.getBoards());
-  }
+  NTCUiStream<List<Board>> getBoards() => NTCUiStream.create<List<Board>>(() => _service.getBoards());
 
-  addRaspberryPi4(RaspberryPi4 request) async {
-    addRaspberryController.getData(() => _service.addRaspberryPi4(request));
-  }
+  NTCUiStream<RaspberryPi4> addRaspberryPi4(RaspberryPi4 request) =>
+      NTCUiStream.create<RaspberryPi4>(() => _service.addRaspberryPi4(request));
 
-  getRaspberryPi4s() async {
-    getRaspberryPi4sController.getData(() => _service.getRaspberryPi4s());
-  }
+  NTCUiStream<List<RaspberryPi4>> getRaspberryPi4s() => NTCUiStream.create<List<RaspberryPi4>>(() => _service.getRaspberryPi4s());
 
-  getRaspberryPiById(String id) async {
-    getRaspberryPiByIdController.getData(() => _service.getRaspberryPiById(id));
-  }
-
-  disposeAll() {
-    addBoardController.dispose();
-    deleteBoardController.dispose();
-    getBoardByIdController.dispose();
-    getBoardsController.dispose();
-    addRaspberryController.dispose();
-    getRaspberryPi4sController.dispose();
-    getRaspberryPiByIdController.dispose();
-  }
+  NTCUiStream<RaspberryPi4> getRaspberryPiById(String id) => NTCUiStream.create<RaspberryPi4>(() => _service.getRaspberryPiById(id));
 }

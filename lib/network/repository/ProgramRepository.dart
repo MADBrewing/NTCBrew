@@ -1,31 +1,16 @@
 import 'package:ntcbrew/network/model/Program.dart';
 import 'package:ntcbrew/network/service/ProgramService.dart';
+import 'package:ntcbrew/network/service/network/ProgramNetworkService.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
 
 class ProgramRepository {
-  final ProgramService _service;
+  final ProgramService _service = ProgramNetworkService();
 
-  NTCUiStream<Program> addProgramController = NTCUiStream();
-  NTCUiStream<Program> getProgramByIdController = NTCUiStream();
-  NTCUiStream<List<Program>> getProgramsController = NTCUiStream();
+  ProgramRepository();
 
-  ProgramRepository(this._service);
+  NTCUiStream<Program> addProgram(Program request) => NTCUiStream.create<Program>(() => _service.addProgram(request));
 
-  addProgram(Program request) async {
-    addProgramController.getData(() => _service.addProgram(request));
-  }
+  NTCUiStream<Program> getProgramById(String id) => NTCUiStream.create<Program>(() => _service.getProgramById(id));
 
-  getProgramById(String id) async {
-    getProgramByIdController.getData(() => _service.getProgramById(id));
-  }
-
-  getPrograms() async {
-    getProgramsController.getData(() => _service.getPrograms());
-  }
-
-  disposeAll() {
-    addProgramController.dispose();
-    getProgramByIdController.dispose();
-    getProgramsController.dispose();
-  }
+  NTCUiStream<List<Program>> getPrograms() => NTCUiStream.create<List<Program>>(() => _service.getPrograms());
 }

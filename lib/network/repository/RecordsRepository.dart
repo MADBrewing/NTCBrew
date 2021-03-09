@@ -1,25 +1,18 @@
 import 'package:ntcbrew/network/model/Records.dart';
 import 'package:ntcbrew/network/service/RecordsService.dart';
+import 'package:ntcbrew/network/service/network/RecordsNetworkService.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
 
 class RecordsRepository {
-  final RecordsService service;
+  final RecordsService _service = RecordsNetworkService();
 
-  NTCUiStream<Records> getProgramByIdController = NTCUiStream();
-  NTCUiStream<List<Records>> getRecordsController = NTCUiStream();
+  RecordsRepository();
 
-  RecordsRepository(this.service);
-
-  getProgramById(String id) {
-    getProgramByIdController.getData(() => service.getProgramById(id));
+  NTCUiStream<Records> getProgramById(String id) {
+    return NTCUiStream.create<Records>(() => _service.getRecordsById(id));
   }
 
-  getRecords() async {
-    getRecordsController.getData(() => service.getRecords());
-  }
-
-  disposeAll() {
-    getProgramByIdController.dispose();
-    getRecordsController.dispose();
+  NTCUiStream<List<Records>> getRecords() {
+    return NTCUiStream.create<List<Records>>(() => _service.getRecords());
   }
 }

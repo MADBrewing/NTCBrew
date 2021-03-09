@@ -21,3 +21,6 @@ clean:  ## flutter clean
 
 build:  ## flutter build
 	flutter build
+
+migrate: ## migrate to null safety
+	dart migrate --apply-changes
