@@ -32,8 +32,10 @@ class _BrewingIntroScreen extends State<BrewingIntroScreen> {
                 stream: boards.stream,
                 builder: (BuildContext context, AsyncSnapshot<UiState<List<Board>>> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(),
+                    return Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     );
                   }
                   switch (snapshot.data!.status) {
@@ -52,8 +54,10 @@ class _BrewingIntroScreen extends State<BrewingIntroScreen> {
                     case UiStatus.ERROR:
                       return Text("Error");
                     case UiStatus.LOADING:
-                      return Center(
-                        child: CircularProgressIndicator(),
+                      return Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       );
                   }
                 }),
