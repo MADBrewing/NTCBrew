@@ -32,7 +32,7 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold(
       appBar: getAppBar(AppLocalizations.of(context)?.home_title),
       body: _screens.elementAt(_selectedIndex),
-      bottomNavigationBar: getNavBar();
+      bottomNavigationBar: getNavBar(),
     );
   }
 

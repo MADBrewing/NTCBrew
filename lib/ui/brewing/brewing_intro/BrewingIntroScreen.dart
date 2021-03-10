@@ -65,5 +65,13 @@ class _BrewingIntroScreen extends State<BrewingIntroScreen> {
         ),
       ),
     );
+
+
+  }
+
+  @override
+  void dispose() {
+    boards.dispose();
+    super.dispose();
   }
 }
