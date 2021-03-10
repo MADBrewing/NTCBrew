@@ -32,23 +32,27 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold(
       appBar: getAppBar(AppLocalizations.of(context)?.home_title),
       body: _screens.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: Strings.getString(AppLocalizations.of(context)?.home_bottomnavbar_brewing),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calculate),
-            label: Strings.getString(AppLocalizations.of(context)?.home_bottomnavbar_formula),
-          ),
-        ],
-        selectedItemColor: Colors.amber[800],
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          _onItemTapped(context, index);
-        },
-      ),
+      bottomNavigationBar: getNavBar();
+    );
+  }
+
+  Widget getNavBar() {
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: Strings.getString(AppLocalizations.of(context)?.home_bottomnavbar_brewing),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calculate),
+          label: Strings.getString(AppLocalizations.of(context)?.home_bottomnavbar_formula),
+        ),
+      ],
+      selectedItemColor: Colors.amber[800],
+      currentIndex: _selectedIndex,
+      onTap: (index) {
+        _onItemTapped(context, index);
+      },
     );
   }
 }

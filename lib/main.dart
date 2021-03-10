@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates, // Add this line
       supportedLocales: AppLocalizations.supportedLocales, // Add this line
-      title: 'NTC Brew',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
