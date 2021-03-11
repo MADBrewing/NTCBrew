@@ -39,6 +39,7 @@ class _EbcCalc extends State<EbcCalc> {
   void dispose() {
     _batchSizeTextController.dispose();
     _weightOfMaltTextController.dispose();
+    _avgMaltEBCTextController.dispose();
     super.dispose();
   }
 
