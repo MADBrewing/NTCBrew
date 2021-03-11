@@ -2,6 +2,15 @@ import 'dart:math';
 
 // Source MyBrew
 class BrewUtils {
+  
+  static double calcHeatingTimeInSeconds(double litres, double kwElement, double deltaTemp, double heatCapacity = 4.2, double estimatedLosses = 1.25) {
+    return ((litres * heatCapacity * deltaTemp * estimatedLosses) / kwElement);
+  }
+
+  static Future<double> calcEPMAsync(double batchSize, double plato) async {
+    return await Future.value(calcEPM(batchSize, plato));
+  }
+  
   /// Calculates Plato from specific density.
   /// It's called:
   /// When defining a recipe, the amount of malt is determined by weight.
