@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ntcbrew/utils/Strings.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ntcbrew/ui/formulas/list/MenuItemProvider.dart';
 
 class FormulaListScreen extends StatelessWidget {
   static const route = "/formulas/list";
@@ -19,17 +18,26 @@ class FormulasList extends StatefulWidget {
 }
 
 class _FormulasListState extends State<FormulasList> {
-  var _items = ["ABV", "Brix", "EBC", "Efficiency", "EPM", "FG", "FG2", "OG", "Plato", "SG"];
+  var _menuItemProvider = MenuItemProvider();
+  late List<MenuItem> _menu;
+
+  @override
+  void initState() {
+    _menu = _menuItemProvider.getMenuItems();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      separatorBuilder: (BuildContext context, int index) => Divider(),
-      itemCount: _items.length,
+        separatorBuilder: (BuildContext context, int index) => Divider(),
+        itemCount: _menu.length,
         itemBuilder: (context, index) {
-      return ListTile(
-        title: Text(_items[index]),
-      );
-    });
+          return ListTile(title: Text(_menu[index].name), onTap: () => _onItemTapped(context, index));
+        });
+  }
+
+  void _onItemTapped(BuildContext context, int index) {
+    Navigator.of(context).pushNamed(_menu[index].path);
   }
 }

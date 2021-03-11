@@ -2,5 +2,15 @@
   "home_title": "NTC Brew",
   "home_bottomnavbar_brewing": "Brewing",
   "home_bottomnavbar_formula": "Formulas",
-  "formulas_title": "Formulas"
+  "formulas_title": "Formulas",
+  "abv_title": "ABV",
+  "brix_title": "Brix",
+  "ebc_title": "EBC",
+  "efficiency_title": "Efficiency",
+  "epm_title": "EPM",
+  "fg_title": "FG",
+  "fg2_title": "FG2",
+  "og_title": "OG",
+  "plato_title": "Plato",
+  "sg_title": "SG"
 }

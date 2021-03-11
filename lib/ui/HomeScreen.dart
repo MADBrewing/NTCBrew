@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ntcbrew/ui/brewing/brewing_intro/BrewingIntroScreen.dart';
 import 'package:ntcbrew/ui/formulas/list/FormulaListScreen.dart';
 import 'package:ntcbrew/utils/Strings.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const route = "/home";
@@ -19,10 +18,10 @@ class _HomeScreen extends State<HomeScreen> {
   ];
 
   void _onItemTapped(BuildContext context, int index) {
+    if (_selectedIndex == index) {
+      return;
+    }
     setState(() {
-      if (_selectedIndex == index) {
-        return;
-      }
       _selectedIndex = index;
     });
   }
@@ -30,22 +29,24 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(AppLocalizations.of(context)?.home_title),
+      appBar: AppBar(
+        title: Text(getString(context, (res) => res?.home_title)),
+      ),
       body: _screens.elementAt(_selectedIndex),
-      bottomNavigationBar: getNavBar(),
+      bottomNavigationBar: getNavBar(context),
     );
   }
 
-  Widget getNavBar() {
+  Widget getNavBar(BuildContext context) {
     return BottomNavigationBar(
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: Strings.getString(AppLocalizations.of(context)?.home_bottomnavbar_brewing),
+          label: getString(context, (res) => res?.home_bottomnavbar_brewing),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.calculate),
-          label: Strings.getString(AppLocalizations.of(context)?.home_bottomnavbar_formula),
+          label: getString(context, (res) => res?.home_bottomnavbar_formula),
         ),
       ],
       selectedItemColor: Colors.amber[800],
@@ -57,8 +58,4 @@ class _HomeScreen extends State<HomeScreen> {
   }
 }
 
-AppBar getAppBar(String? title) {
-  return AppBar(
-    title: Text(Strings.getString(title)),
-  );
-}
+
