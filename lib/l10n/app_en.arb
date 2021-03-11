@@ -12,5 +12,17 @@
   "fg2_title": "FG2",
   "og_title": "OG",
   "plato_title": "Plato",
-  "sg_title": "SG"
+  "sg_title": "SG",
+  "og_text_field_label": "og",
+  "fg_text_field_label": "fg",
+  "batch_size_text_field_label": "Batch Size",
+  "plato_text_field_label": "Plato",
+  "brix_start_text_field_label": "Brix Start",
+  "brix_end_text_field_label": "Brix End",
+  "weight_of_malt_text_field_label": "Weight of Malt",
+  "avg_malt_ebc_field_label": "Average Malt EBC",
+  "avg_extr_text_field_label": "Average Extr",
+  "attenuation_text_field_label": "Attenuation",
+  "epm_text_field_label": "Epm",
+  "sg_text_field_label": "Sg"
 }
