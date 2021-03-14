@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:ntcbrew/network/repository/BoardRepository.dart';
+import 'package:ntcbrew/network/repository/ProfileRepository.dart';
+import 'package:ntcbrew/network/service/network/BoardNetworkService.dart';
+import 'package:ntcbrew/network/service/network/ProfileNetworkService.dart';
 import 'package:ntcbrew/routes.dart';
-import 'package:ntcbrew/ui/HomeScreen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  MultiProvider provider = MultiProvider(
+    providers: [
+      Provider<BoardNetworkService>(create: (_) => BoardNetworkService(), lazy: true),
+      Provider<BoardRepository>(create: (context) => BoardRepository(Provider.of<BoardNetworkService>(context, listen: false)), lazy: true),
+      Provider<ProfileNetworkService>(create: (_) => ProfileNetworkService(), lazy: true),
+      Provider<ProfileRepository>(create: (context) => ProfileRepository(Provider.of<ProfileNetworkService>(context, listen: false)), lazy: true),
+    ],
+    child: MyApp(),
+  );
+  runApp(provider);
 }
 
 class MyApp extends StatelessWidget {
@@ -16,8 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
-      routes: routes,
+      onGenerateRoute: routes,
     );
   }
 }

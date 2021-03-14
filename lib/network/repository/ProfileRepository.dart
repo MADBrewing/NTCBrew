@@ -2,11 +2,12 @@ import 'package:ntcbrew/network/model/Module.dart';
 import 'package:ntcbrew/network/model/Profile.dart';
 import 'package:ntcbrew/network/model/Sensor.dart';
 import 'package:ntcbrew/network/service/ProfileService.dart';
-import 'package:ntcbrew/network/service/network/ProfileNetworkService.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
 
 class ProfileRepository {
-  final ProfileService _service = ProfileNetworkService();
+  final ProfileService _service;
+
+  ProfileRepository(this._service);
 
   NTCUiStream<List<Profile>> getProfiles() => NTCUiStream.create<List<Profile>>(() => _service.getProfiles());
 

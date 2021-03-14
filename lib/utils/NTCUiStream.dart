@@ -18,15 +18,22 @@ class NTCUiStream<T> {
 
   late Future<T> Function() _action;
 
+  UiState<T>? _lastState;
+
   NTCUiStream<T> setAction(Future<T> Function() action) {
     _action = action;
     return this;
   }
 
-  start() async {
+  refresh([bool? force]) async {
     _loading();
     try {
-      var completed = await _action();
+      T completed;
+      if(force == true || _lastState?.data == null) {
+        completed = await _action();
+      } else {
+        completed = _lastState!.data!;
+      }
       _success(completed);
     } catch (e) {
       print(e.toString());
@@ -35,15 +42,23 @@ class NTCUiStream<T> {
   }
 
   _loading() {
-    sink.add(UiState.loading());
+    _lastState = UiState.loading();
+    _notifyState();
   }
 
   _success(T data) {
-    sink.add(UiState.complete(data));
+    _lastState = UiState.complete(data);
+    _notifyState();
   }
 
   _error(Object e) {
-    sink.add(UiState.error(ErrorState(e.toString())));
+    sink.addError(UiState.error(ErrorState(e.toString())));
+  }
+
+  _notifyState() {
+    if(_lastState != null) {
+      sink.add(_lastState!);
+    }
   }
 
   dispose() {

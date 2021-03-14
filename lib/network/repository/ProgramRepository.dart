@@ -1,12 +1,11 @@
 import 'package:ntcbrew/network/model/Program.dart';
 import 'package:ntcbrew/network/service/ProgramService.dart';
-import 'package:ntcbrew/network/service/network/ProgramNetworkService.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
 
 class ProgramRepository {
-  final ProgramService _service = ProgramNetworkService();
+  final ProgramService _service;
 
-  ProgramRepository();
+  ProgramRepository(this._service);
 
   NTCUiStream<Program> addProgram(Program request) => NTCUiStream.create<Program>(() => _service.addProgram(request));
 

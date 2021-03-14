@@ -9,7 +9,6 @@ part of 'Sensor.dart';
 Sensor _$SensorFromJson(Map<String, dynamic> json) {
   return Sensor(
     json['id'] as String,
-    Module.fromJson(json['module'] as Map<String, dynamic>),
     json['name'] as String,
     json['gpioType'] as String,
     json['hwIdentifier'] as String,
@@ -20,7 +19,6 @@ Sensor _$SensorFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SensorToJson(Sensor instance) => <String, dynamic>{
       'id': instance.id,
-      'module': instance.module,
       'name': instance.name,
       'gpioType': instance.gpioType,
       'hwIdentifier': instance.hwIdentifier,

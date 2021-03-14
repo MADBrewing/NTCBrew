@@ -24,5 +24,11 @@
   "avg_extr_text_field_label": "Average Extr",
   "attenuation_text_field_label": "Attenuation",
   "epm_text_field_label": "Epm",
-  "sg_text_field_label": "Sg"
+  "sg_text_field_label": "Sg",
+  "loading": "Loading",
+  "no_data": "No data",
+  "error": "Unexpected error",
+  "board_title": "Boards",
+  "module_title": "Modules",
+  "sensor_title": "Sensors"
 }

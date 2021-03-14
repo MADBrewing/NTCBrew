@@ -8,17 +8,29 @@ import 'package:ntcbrew/ui/widgets/empty.dart';
 import 'package:ntcbrew/ui/widgets/error.dart';
 import 'package:ntcbrew/ui/widgets/loading.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
+import 'package:ntcbrew/utils/Strings.dart';
 import 'package:provider/provider.dart';
 
-//TODO rewrite to brewing dashboard
-class BrewingIntroScreen extends StatefulWidget {
-  static const route = "/brewing/intro";
+class BoardListScreen extends StatelessWidget {
+  static const route = "/brewing/board/list";
 
   @override
-  State<StatefulWidget> createState() => _BrewingIntroScreen();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(getString(context, (res) => res?.board_title)),
+      ),
+      body: BoardListBody(),
+    );
+  }
 }
 
-class _BrewingIntroScreen extends State<BrewingIntroScreen> {
+class BoardListBody extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _BoardListBody();
+}
+
+class _BoardListBody extends State<BoardListBody> {
   NTCUiStream<List<Board>>? ntcUiStream;
 
   @override

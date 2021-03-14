@@ -7,9 +7,9 @@ import 'package:ntcbrew/network/service/network/BoardNetworkService.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
 
 class BoardRepository {
-  final BoardService _service = BoardNetworkService();
+  final BoardService _service;
 
-  BoardRepository();
+  BoardRepository(this._service);
 
   NTCUiStream<Board> addBoard(BoardAdd request) => NTCUiStream.create<Board>(() => _service.addBoard(request));
 

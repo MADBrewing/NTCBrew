@@ -4,7 +4,7 @@ import 'package:ntcbrew/ui/formulas/list/FormulaListScreen.dart';
 import 'package:ntcbrew/utils/Strings.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const route = "/home";
+  static const route = "/";
 
   @override
   State<StatefulWidget> createState() => _HomeScreen();
