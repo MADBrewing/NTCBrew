@@ -8,17 +8,57 @@ import 'package:ntcbrew/ui/widgets/empty.dart';
 import 'package:ntcbrew/ui/widgets/error.dart';
 import 'package:ntcbrew/ui/widgets/loading.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
+import 'package:ntcbrew/utils/SocketUtil.dart';
 import 'package:provider/provider.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/status.dart' as status;
 
 //TODO rewrite to brewing dashboard
-class BrewingIntroScreen extends StatefulWidget {
+class BrewingIntroScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamWidget();
+  }
+}
+
+class StreamWidget extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _StreamWidget();
+}
+
+class _StreamWidget extends State<StreamWidget> {
+  late IOWebSocketChannel channel;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: channel.stream,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          return Text("data: ${snapshot.data?.toString()}");
+        });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    channel = openSocket("livedata");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    channel.sink.close(status.goingAway);
+  }
+}
+
+class BrewingIntroBody extends StatefulWidget {
   static const route = "/brewing/intro";
 
   @override
-  State<StatefulWidget> createState() => _BrewingIntroScreen();
+  State<StatefulWidget> createState() => _BrewingIntroBody();
 }
 
-class _BrewingIntroScreen extends State<BrewingIntroScreen> {
+class _BrewingIntroBody extends State<BrewingIntroBody> {
   NTCUiStream<List<Board>>? ntcUiStream;
 
   @override

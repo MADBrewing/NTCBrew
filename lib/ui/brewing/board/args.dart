@@ -11,6 +11,7 @@ class ModuleScreenArgument {
 }
 
 class ProfileScreenArgument {
+
   final String profileId;
 
   ProfileScreenArgument(this.profileId);

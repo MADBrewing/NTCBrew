@@ -4,6 +4,7 @@ import 'package:ntcbrew/ui/brewing/board/BoardAddScreen.dart';
 import 'package:ntcbrew/ui/brewing/board/BoardListScreen.dart';
 import 'package:ntcbrew/ui/brewing/profile/ModuleListScreen.dart';
 import 'package:ntcbrew/ui/brewing/profile/ProfileListScreen.dart';
+import 'package:ntcbrew/ui/brewing/profile/SensorListScreen.dart';
 import 'package:ntcbrew/ui/brewing/status_check/StatusCheckScreen.dart';
 import 'package:ntcbrew/ui/formulas/abv/AbvScreen.dart';
 import 'package:ntcbrew/ui/formulas/brix/BrixScreen.dart';
@@ -31,6 +32,8 @@ RouteFactory routes = (settings) {
       return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => ProfileListScreen());
     case ModuleListScreen.route:
       return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => ModuleListScreen());
+    case SensorListScreen.route:
+      return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => SensorListScreen());
     case AbvScreen.route:
       return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => AbvScreen());
     case BrixScreen.route:

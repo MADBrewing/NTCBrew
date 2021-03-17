@@ -41,6 +41,10 @@ class NTCUiStream<T> {
     }
   }
 
+  bool hasData() {
+    return _lastState?.data != null;
+  }
+
   _loading() {
     _lastState = UiState.loading();
     _notifyState();

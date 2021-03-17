@@ -6,6 +6,7 @@ import 'package:ntcbrew/network/repository/BoardRepository.dart';
 import 'package:ntcbrew/network/repository/ProfileRepository.dart';
 import 'package:ntcbrew/ui/UiState.dart';
 import 'package:ntcbrew/ui/brewing/board/args.dart';
+import 'package:ntcbrew/ui/brewing/profile/SensorListScreen.dart';
 import 'package:ntcbrew/ui/widgets/empty.dart';
 import 'package:ntcbrew/ui/widgets/error.dart';
 import 'package:ntcbrew/ui/widgets/loading.dart';
@@ -77,7 +78,7 @@ class _ModuleListBody extends State<ModuleListBody> {
           child: ListTile(
             title: Text(module.name),
             onTap: () => {
-              Navigator.of(context).pushNamed(ModuleListScreen.route, arguments: ModuleScreenArgument(module.id)),
+              Navigator.of(context).pushNamed(SensorListScreen.route, arguments: ModuleScreenArgument(module.id)),
             },
           ),
         );

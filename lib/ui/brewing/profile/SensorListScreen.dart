@@ -15,13 +15,13 @@ import 'package:ntcbrew/utils/Strings.dart';
 import 'package:provider/provider.dart';
 
 class SensorListScreen extends StatelessWidget {
-  static const route = "/brewing/module/list";
+  static const route = "/brewing/sensor/list";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(getString(context, (res) => res?.screen_title)),
+        title: Text(getString(context, (res) => res?.sensor_title)),
       ),
       body: SensorListBody(),
     );

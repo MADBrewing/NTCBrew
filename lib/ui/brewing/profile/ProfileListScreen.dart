@@ -33,18 +33,23 @@ class ProfileListBody extends StatefulWidget {
 }
 
 class _ProfileListBody extends State<ProfileListBody> {
-  NTCUiStream<List<Profile>>? ntcUiStream;
+  late NTCUiStream<List<Profile>> _ntcUiStream;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var profileRepository = Provider.of<ProfileRepository>(context);
+    _ntcUiStream = profileRepository.getProfiles();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var profileRepository = Provider.of<ProfileRepository>(context);
-    if (ntcUiStream == null) {
-      ntcUiStream = profileRepository.getProfiles();
-      ntcUiStream?.refresh();
+    if(!_ntcUiStream.hasData()) {
+      _ntcUiStream.refresh();
     }
 
     return StreamBuilder(
-      stream: ntcUiStream!.stream,
+      stream: _ntcUiStream.stream,
       builder: (BuildContext context, AsyncSnapshot<UiState<List<Profile>>> snapshot) {
         if (!snapshot.hasData || snapshot.data?.status == UiStatus.LOADING) {
           return LoadingWidget();
@@ -52,13 +57,13 @@ class _ProfileListBody extends State<ProfileListBody> {
 
         if (snapshot.hasError) {
           return NtcErrorWidget(() => {
-                ntcUiStream?.refresh(),
+                _ntcUiStream.refresh(),
               });
         }
 
         if (snapshot.data?.data?.isEmpty == true) {
           return EmptyWidget(() => {
-                ntcUiStream?.refresh(true),
+                _ntcUiStream.refresh(true),
               });
         }
 
@@ -87,7 +92,7 @@ class _ProfileListBody extends State<ProfileListBody> {
 
   @override
   void dispose() {
-    ntcUiStream?.dispose();
+    _ntcUiStream.dispose();
     super.dispose();
   }
 }
