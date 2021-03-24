@@ -24,3 +24,48 @@ build:  ## flutter build
 
 migrate: ## migrate to null safety
 	dart migrate --apply-changes
+
+enable-osx: ## enable OSX
+	flutter config --enable-macos-desktop
+
+enable-windows: ## enable Windows
+	flutter config --enable-windows-desktop
+
+enable-linux: ## enable Linux
+	flutter config --enable-linux-desktop
+
+run-osx: ## run OSX
+	flutter run -d macos
+
+run-windows: ## run Windows
+	flutter run -d windows
+
+run-linux: ## run Linux
+	flutter run -d linux
+
+run-web: ## run Web
+	flutter run -d chrome
+
+build-osx: ## build OSX
+	flutter build macos
+
+build-windows: ## build Windows
+	flutter build windows
+
+build-linux: ## build Linux
+	flutter build linux
+
+build-web: ## build Web
+	flutter build web
+
+add-osx:  ## add OSX
+	flutter create --platforms=macos .
+
+add-windows:  ## add Windows
+	flutter create --platforms=windows .
+
+add-linux: ## add Linux
+	flutter create --platforms=linux .
+
+add-web: ## add web
+	flutter create .
