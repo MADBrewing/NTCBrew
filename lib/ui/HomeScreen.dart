@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ntcbrew/ui/brewing/brewing_intro/BrewingIntroScreen.dart';
+import 'package:ntcbrew/ui/brewing/profile/AddProfileScreen.dart';
 import 'package:ntcbrew/ui/formulas/list/FormulaListScreen.dart';
 import 'package:ntcbrew/utils/Strings.dart';
 
@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   int _selectedIndex = 0;
   List<Widget> _screens = <Widget> [
-    BrewingIntroScreen(),
+    AddProfileScreen(),
     FormulaListScreen()
   ];
 
@@ -29,9 +29,9 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(getString(context, (res) => res?.home_title)),
-      ),
+      // appBar: AppBar(
+      //   title: Text(getString(context, (res) => res?.home_title)),
+      // ),
       body: _screens.elementAt(_selectedIndex),
       bottomNavigationBar: getNavBar(context),
     );

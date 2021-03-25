@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ntcbrew/ui/HomeScreen.dart';
-import 'package:ntcbrew/ui/brewing/board/BoardAddScreen.dart';
-import 'package:ntcbrew/ui/brewing/board/BoardListScreen.dart';
+import 'package:ntcbrew/ui/brewing/profile/AddModuleScreen.dart';
+import 'package:ntcbrew/ui/brewing/profile/AddProfileScreen.dart';
+import 'package:ntcbrew/ui/brewing/profile/AddSensorScreen.dart';
 import 'package:ntcbrew/ui/brewing/profile/ModuleListScreen.dart';
 import 'package:ntcbrew/ui/brewing/profile/ProfileListScreen.dart';
 import 'package:ntcbrew/ui/brewing/profile/SensorListScreen.dart';
@@ -22,10 +23,6 @@ RouteFactory routes = (settings) {
   switch (settings.name) {
     case HomeScreen.route:
       return MaterialPageRoute(builder: (_) => HomeScreen());
-    case BoardAddScreen.route:
-      return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => BoardAddScreen());
-    case BoardListScreen.route:
-      return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => BoardListScreen());
     case StatusCheckScreen.route:
       return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => StatusCheckScreen());
     case ProfileListScreen.route:
@@ -34,6 +31,12 @@ RouteFactory routes = (settings) {
       return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => ModuleListScreen());
     case SensorListScreen.route:
       return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => SensorListScreen());
+    case AddProfileScreen.route:
+      return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => AddProfileScreen());
+    case AddModuleScreen.route:
+      return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => AddModuleScreen());
+    case AddSensorScreen.route:
+      return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => AddSensorScreen());
     case AbvScreen.route:
       return PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => AbvScreen());
     case BrixScreen.route:

@@ -28,7 +28,7 @@
   "loading": "Loading",
   "no_data": "No data",
   "error": "Unexpected error",
-  "board_title": "Boards",
   "module_title": "Modules",
-  "sensor_title": "Sensors"
+  "sensor_title": "Sensors",
+  "profile_title": "Profile"
 }

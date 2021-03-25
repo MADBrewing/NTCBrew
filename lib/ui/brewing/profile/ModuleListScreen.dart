@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ntcbrew/network/model/Board.dart';
 import 'package:ntcbrew/network/model/Module.dart';
-import 'package:ntcbrew/network/model/Profile.dart';
-import 'package:ntcbrew/network/repository/BoardRepository.dart';
 import 'package:ntcbrew/network/repository/ProfileRepository.dart';
-import 'package:ntcbrew/ui/UiState.dart';
-import 'package:ntcbrew/ui/brewing/board/args.dart';
+import 'package:ntcbrew/ui/brewing/args.dart';
 import 'package:ntcbrew/ui/brewing/profile/SensorListScreen.dart';
 import 'package:ntcbrew/ui/widgets/empty.dart';
 import 'package:ntcbrew/ui/widgets/error.dart';
 import 'package:ntcbrew/ui/widgets/loading.dart';
+import 'package:ntcbrew/ui/widgets/stream_widget.dart';
 import 'package:ntcbrew/utils/NTCUiStream.dart';
 import 'package:ntcbrew/utils/Strings.dart';
 import 'package:provider/provider.dart';
@@ -34,41 +31,32 @@ class ModuleListBody extends StatefulWidget {
 }
 
 class _ModuleListBody extends State<ModuleListBody> {
-  NTCUiStream<List<Module>>? ntcUiStream;
+  late NTCUiStream<List<Module>> _ntcUiStream;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var profileRepository = Provider.of<ProfileRepository>(context);
+    // final ProfileScreenArgument? args = ModalRoute.of(context)?.settings.arguments as ProfileScreenArgument;
+    _ntcUiStream = profileRepository.getModules();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var profileRepository = Provider.of<ProfileRepository>(context);
-    if (ntcUiStream == null) {
-      ntcUiStream = profileRepository.getModules();
-      ntcUiStream?.refresh();
+    if (!_ntcUiStream.hasData()) {
+      _ntcUiStream.refresh();
     }
 
-    return StreamBuilder(
-      stream: ntcUiStream!.stream,
-      builder: (BuildContext context, AsyncSnapshot<UiState<List<Module>>> snapshot) {
-        if (!snapshot.hasData || snapshot.data?.status == UiStatus.LOADING) {
-          return LoadingWidget();
-        }
-
-        if (snapshot.hasError) {
-          return NtcErrorWidget(() => {
-                ntcUiStream?.refresh(),
-              });
-        }
-
-        if (snapshot.data?.data?.isEmpty == true) {
-          return EmptyWidget(() => {
-                ntcUiStream?.refresh(true),
-              });
-        }
-
-        return createList(snapshot.data!.data!);
-      },
+    return NTCStreamBuilder<List<Module>>(
+      dataStream: _ntcUiStream.stream,
+      noData: _showEmptyView(),
+      loading: _showLoading(),
+      error: (error) => _showError(),
+      body: (data) => _createList(data),
     );
   }
 
-  Widget createList(List<Module> data) {
+  Widget _createList(List<Module> data) {
     return ListView.builder(
       padding: const EdgeInsets.all(8),
       itemCount: data.length,
@@ -86,9 +74,19 @@ class _ModuleListBody extends State<ModuleListBody> {
     );
   }
 
+  Widget _showLoading() => LoadingWidget();
+
+  Widget _showError() => NtcErrorWidget(() => {
+        _ntcUiStream.refresh(),
+      });
+
+  Widget _showEmptyView() => EmptyWidget(() => {
+        _ntcUiStream.refresh(true),
+      });
+
   @override
   void dispose() {
-    ntcUiStream?.dispose();
+    _ntcUiStream.dispose();
     super.dispose();
   }
 }
